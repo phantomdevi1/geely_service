@@ -4,7 +4,7 @@
 
 <div class="container hero-content">
 
-<h1>Официальное обслуживание<br>Geely и Belgee</h1>
+<h1>Официальное обслуживание<br>Geely и Belgee <br> от Авто Премиум</h1>
 
 <p>
 Современный сервисный центр.  

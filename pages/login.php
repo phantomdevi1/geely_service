@@ -15,15 +15,27 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
         $stmt = $pdo->prepare("SELECT * FROM users WHERE phone=?");
         $stmt->execute([$phone]);
-        $user = $stmt->fetch();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if($user && password_verify($password, $user['password_hash'])){
 
+            // сохраняем сессию
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['name'];
             $_SESSION['user_phone'] = $user['phone'];
+            $_SESSION['role'] = $user['role'];
 
-            header("Location: index.php?page=profile");
+            // редирект по роли
+            if($user['role'] === 'mechanic'){
+                header("Location: index.php?page=mechanic");
+            }
+            elseif($user['role'] === 'admin'){
+                header("Location: index.php?page=admin");
+            }
+            else{
+                header("Location: index.php?page=profile");
+            }
+
             exit;
 
         } else {

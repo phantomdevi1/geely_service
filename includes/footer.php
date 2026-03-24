@@ -12,9 +12,9 @@
     <!-- Контакты -->
     <div class="footer-col contact-col">
         <h4>Контакты</h4>
-        <p>г. Тверь, ул. Новоторжская, д. 12</p>
-        <p>Телефон: +7 (4822) 55-11-22</p>
-        <p>Email: info@geely-belgee.ru</p>
+        <p>ТПЗ Боровлёво-1, 164-й км трассы «Москва — Санкт-Петербург»</p>
+        <p>Телефон: +7 (4822) 797-797</p>
+        <p>Email: info@autopremium-tver.ru</p>
     </div>
 
     <!-- Полезные ссылки -->
@@ -32,7 +32,7 @@
         <div class="social-icons">
             <a href="#" target="_blank">Telegram</a><br>
             <a href="#" target="_blank">MAX</a><br>
-            <a href="#" target="_blank">VK</a>
+            <a href="https://vk.com/autopremium.tver" target="_blank">VK</a>
         </div>
     </div>
 
