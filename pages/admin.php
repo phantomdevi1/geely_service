@@ -98,6 +98,9 @@ $bookings = $stmt->fetchAll();
 <a href="index.php?page=admin_centers" class="btn btn-primary">
 Управление сервисными центрами
 </a>
+<a href="index.php?page=admin_users" class="btn btn-primary">
+Управление пользователями
+</a>
 </div>
 
 </div>

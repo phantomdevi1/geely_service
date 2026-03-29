@@ -47,6 +47,10 @@ $centers = $pdo->query("SELECT * FROM centers")->fetchAll();
 <td><?= htmlspecialchars($c['name']) ?></td>
 <td><?= htmlspecialchars($c['address']) ?></td>
 <td>
+<a href="index.php?page=admin_edit_center&id=<?= $c['id'] ?>" class="btn btn-warning">
+Редактировать
+</a>
+
 <a href="index.php?page=admin_delete_center&id=<?= $c['id'] ?>" class="btn btn-danger">
 Удалить
 </a>
