@@ -53,7 +53,6 @@ body {
   height: 500px;
   position: relative;
 }
-
 .hero-overlay {
   background: rgba(0, 0, 0, 0.55);
   height: 100%;
@@ -78,7 +77,8 @@ body {
 /* BUTTON */
 
 .btn-primary {
-  background: #0a63ff;
+  margin-top: 10px;
+  background: #0aa0ff;
   color: white;
   padding: 15px 35px;
   border-radius: 6px;
@@ -783,4 +783,46 @@ body {
 
 .btn-secondary:hover {
   background: #bbb;
+}
+@media screen and (width < 1300px) {
+  .hero {
+    height: 400px;
+  }
+  .about-text {
+    text-align: center;
+    width: 80%;
+  }
+  .about-grid {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    max-width: 80%;
+  }
+  .stats {
+    width: 80%;
+  }
+  .services-grid {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 82%;
+  }
+  .footer-col.logo-col img {
+    height: 30px;
+  }
+  .container {
+    width: 90%;
+  }
+  .hero-content {
+    padding-top: 50px;
+  }
+}
+@media screen and (width <1150px) {
+  .footer-col.logo-col img {
+    height: 20px;
+  }
+  .links-col {
+    display: none;
+  }
 }
