@@ -10,11 +10,9 @@ if(!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin'){
 // Получаем все записи
 $stmt = $pdo->query("
 SELECT 
-    bookings.id,
-    bookings.booking_datetime,
-    bookings.status,
-    users.name,
-    users.phone,
+    bookings.*,
+    COALESCE(users.name, bookings.name) AS client_name,
+    COALESCE(users.phone, bookings.phone) AS client_phone,
     services.name AS service_name,
     centers.name AS center_name,
     cars.brand,
@@ -24,7 +22,7 @@ LEFT JOIN users ON bookings.user_id = users.id
 LEFT JOIN services ON bookings.service_id = services.id
 LEFT JOIN centers ON bookings.center_id = centers.id
 LEFT JOIN cars ON bookings.car_id = cars.id
-ORDER BY booking_datetime DESC
+ORDER BY bookings.booking_datetime DESC
 ");
 
 $bookings = $stmt->fetchAll();
@@ -34,7 +32,9 @@ $bookings = $stmt->fetchAll();
 <div class="container">
 
 <h1 class="admin-title">Админ-панель</h1>
-<a href="index.php?page=logout" class="btn-logout">Выйти</a>
+    <a href="index.php?page=logout" class="btn-logout" onclick="return confirm('Вы точно хотите выйти из профиля?')">
+        Выйти
+    </a>
 
 <div class="admin-card">
 
@@ -63,11 +63,11 @@ $bookings = $stmt->fetchAll();
 <td><?= date('d.m.Y H:i', strtotime($b['booking_datetime'])) ?></td>
 
 <td>
-<strong><?= htmlspecialchars($b['name']) ?></strong><br>
-<span style="color:#666;"><?= htmlspecialchars($b['phone']) ?></span>
+<strong><?= htmlspecialchars($b['client_name']) ?></strong><br>
+<span style="color:#666;"><?= htmlspecialchars($b['client_phone']) ?></span>
 </td>
 
-<td><?= htmlspecialchars($b['brand'].' '.$b['model']) ?></td>
+<td><?= htmlspecialchars(($b['brand'] ?? '—').' '.($b['model'] ?? '')) ?></td>
 
 <td><?= htmlspecialchars($b['service_name']) ?></td>
 

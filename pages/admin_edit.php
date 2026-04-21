@@ -13,8 +13,8 @@ $id = (int)($_GET['id'] ?? 0);
 $stmt = $pdo->prepare("
 SELECT 
     bookings.*,
-    users.name,
-    users.phone,
+    COALESCE(users.name, bookings.name) AS client_name,
+    COALESCE(users.phone, bookings.phone) AS client_phone,
     services.name AS service_name,
     centers.name AS center_name
 FROM bookings
@@ -28,6 +28,19 @@ $booking = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if(!$booking){
     die("Запись не найдена");
+}
+if($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $new_date = $_POST['date'];
+
+    if(strtotime($new_date) < time()){
+        die("Нельзя поставить прошедшее время");
+    }
+
+    $stmt = $pdo->prepare("UPDATE bookings SET booking_datetime=? WHERE id=?");
+    $stmt->execute([$new_date, $id]);
+
+    header("Location: index.php?page=admin");
+    exit;
 }
 
 // сохранение
@@ -54,8 +67,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <div>
 <strong>Клиент:</strong><br>
-<?= htmlspecialchars($booking['name']) ?><br>
-<span class="muted"><?= htmlspecialchars($booking['phone']) ?></span>
+<?= htmlspecialchars($booking['client_name']) ?><br>
+<span class="muted"><?= htmlspecialchars($booking['client_phone']) ?></span>
 </div>
 
 <div>
@@ -81,11 +94,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <form method="POST" class="admin-form">
 
 <label>Новая дата и время</label>
-<input type="datetime-local" name="date" required>
+<input type="datetime-local" name="date" min="<?= date('Y-m-d\TH:i') ?>" required>
 
 <div class="form-actions">
 <button class="btn btn-primary">Сохранить</button>
-<a href="index.php?page=admin" class="btn btn-secondary">Отмена</a>
+<a href="index.php?page=admin" class="btn btn-secondary"> Отмена</a>
 </div>
 
 </form>

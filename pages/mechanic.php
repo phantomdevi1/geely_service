@@ -21,18 +21,23 @@ $center_id = $mechanic['center_id'];
 $stmt = $pdo->prepare("
 SELECT 
     bookings.*,
-    users.name as client_name,
-    users.phone,
-    services.name as service_name,
+    COALESCE(users.name, bookings.name) AS client_name,
+    COALESCE(users.phone, bookings.phone) AS client_phone,
+    services.name AS service_name,
+    centers.name AS center_name,
     cars.brand,
     cars.model
 FROM bookings
 LEFT JOIN users ON bookings.user_id = users.id
 LEFT JOIN services ON bookings.service_id = services.id
+LEFT JOIN centers ON bookings.center_id = centers.id
 LEFT JOIN cars ON bookings.car_id = cars.id
 WHERE bookings.center_id = ?
-ORDER BY booking_datetime ASC
+ORDER BY 
+    CASE WHEN bookings.status = 'done' THEN 1 ELSE 0 END,
+    bookings.booking_datetime DESC
 ");
+
 $stmt->execute([$center_id]);
 $bookings = $stmt->fetchAll();
 ?>
@@ -43,7 +48,9 @@ $bookings = $stmt->fetchAll();
 <h1>Панель механика</h1>
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
     <h1>Панель механика</h1>
-    <a href="index.php?page=logout" class="btn-logout">Выйти</a>
+    <a href="index.php?page=logout" class="btn-logout" onclick="return confirm('Вы точно хотите выйти из профиля?')">
+        Выйти
+    </a>
 </div>
 
 <table class="profile-table">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 29 2026 г., 10:23
+-- Время создания: Апр 21 2026 г., 13:38
 -- Версия сервера: 5.7.39
 -- Версия PHP: 8.1.9
 
@@ -46,7 +46,8 @@ CREATE TABLE `bookings` (
 
 INSERT INTO `bookings` (`id`, `user_id`, `car_id`, `service_id`, `center_id`, `booking_datetime`, `name`, `phone`, `created_at`, `status`) VALUES
 (1, 2, 22, 8, 3, '2026-03-27 19:00:00', 'Илья', '89607092738', '2026-03-24 13:12:36', 'done'),
-(2, 4, 23, 8, 3, '2026-03-24 20:00:00', 'Администратор', '+79990000001', '2026-03-24 13:36:51', 'new');
+(2, 4, 23, 8, 3, '2026-03-24 20:00:00', 'Администратор', '+79990000001', '2026-03-24 13:36:51', 'new'),
+(4, NULL, 2, 2, 3, '2026-04-21 15:00:00', 'Илья', '89607092738', '2026-04-21 09:41:54', 'new');
 
 -- --------------------------------------------------------
 
@@ -115,6 +116,34 @@ CREATE TABLE `centers` (
 
 INSERT INTO `centers` (`id`, `name`, `address`, `phone`, `created_at`, `open_time`, `close_time`, `image`, `map_iframe`) VALUES
 (3, 'Geely & BelGee Тверь – Южный обход', 'ТПЗ Боровлёво-1, 164-й км трассы «Москва — Санкт-Петербург»', '+7 (4822) 797-797', '2026-03-10 09:56:03', '09:00:00', '21:00:00', 'images/center3.jpg', '<iframe src=\"https://yandex.ru/map-widget/v1/?um=constructor%3Ad033ce832c2a8bc7e933d830ee7c1235947327b97254ee5d3141e58d134a6930&amp;source=constructor\" frameborder=\"0\"></iframe>');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `rating` int(11) DEFAULT '5',
+  `text` text COLLATE utf8mb4_unicode_ci,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Дамп данных таблицы `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `name`, `rating`, `text`, `created_at`) VALUES
+(1, NULL, 'Иван Петров', 5, 'Отличный сервис! Быстро записали, всё сделали качественно. Рекомендую.', '2026-04-13 10:05:18'),
+(2, NULL, 'Алексей Смирнов', 4, 'Хороший сервисный центр, но немного задержали по времени. В целом доволен.', '2026-04-11 10:05:18'),
+(3, NULL, 'Дмитрий Кузнецов', 5, 'Обслуживаю Geely уже второй год здесь. Всегда всё на уровне.', '2026-04-21 10:05:18'),
+(4, NULL, 'Сергей Иванов', 5, 'Очень вежливый персонал и приятная атмосфера. Сделали ТО быстрее, чем ожидал.', '2026-02-21 10:05:18'),
+(5, NULL, 'Андрей Волков', 4, 'Цены адекватные, всё объяснили и показали. Буду приезжать ещё.', '2026-01-21 10:05:18'),
+(6, NULL, 'Михаил Соколов', 5, 'Лучший сервис в городе. Делал диагностику — нашли проблему сразу.', '2026-04-21 10:05:18'),
+(7, NULL, 'Олег Васильев', 5, 'Удобная онлайн-запись и грамотные мастера. Всё понравилось!', '2026-03-11 10:05:18');
 
 -- --------------------------------------------------------
 
@@ -200,6 +229,13 @@ ALTER TABLE `centers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Индексы таблицы `services`
 --
 ALTER TABLE `services`
@@ -219,7 +255,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT для таблицы `bookings`
 --
 ALTER TABLE `bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT для таблицы `cars`
@@ -231,7 +267,13 @@ ALTER TABLE `cars`
 -- AUTO_INCREMENT для таблицы `centers`
 --
 ALTER TABLE `centers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT для таблицы `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT для таблицы `services`
@@ -257,6 +299,12 @@ ALTER TABLE `bookings`
   ADD CONSTRAINT `bookings_ibfk_2` FOREIGN KEY (`car_id`) REFERENCES `cars` (`id`),
   ADD CONSTRAINT `bookings_ibfk_3` FOREIGN KEY (`service_id`) REFERENCES `services` (`id`),
   ADD CONSTRAINT `bookings_ibfk_4` FOREIGN KEY (`center_id`) REFERENCES `centers` (`id`);
+
+--
+-- Ограничения внешнего ключа таблицы `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

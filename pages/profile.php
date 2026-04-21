@@ -58,7 +58,9 @@ if(isset($_GET['cancel'])){
 <p><strong>Имя:</strong> <?= htmlspecialchars($user['name']) ?></p>
 <p><strong>Телефон:</strong> <?= htmlspecialchars($user['phone']) ?></p>
 
-<a href="index.php?page=logout" class="btn-logout">Выйти</a>
+    <a href="index.php?page=logout" class="btn-logout" onclick="return confirm('Вы точно хотите выйти из профиля?')">
+        Выйти
+    </a>
 
 </div>
 

@@ -13,8 +13,10 @@
     <div class="footer-col contact-col">
         <h4>Контакты</h4>
         <p>ТПЗ Боровлёво-1, 164-й км трассы «Москва — Санкт-Петербург»</p>
-        <p>Телефон: +7 (4822) 797-797</p>
-        <p>Email: info@autopremium-tver.ru</p>
+        <p>Телефон (Belgee): +7 (4822) 79-79-51</p>
+        <p>Телефон (Geely): +7 (4822) 79-79-49</p>
+        <p>Email: info@geely-autopremium.ru</p>
+        <p>Email: info@belgee-autopremium.ru</p>
     </div>
 
     <!-- Полезные ссылки -->

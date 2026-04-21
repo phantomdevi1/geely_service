@@ -9,6 +9,15 @@ body {
   width: 1200px;
   margin: auto;
 }
+.container-cta {
+  width: 1200px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  align-items: center;
+}
 
 /* HEADER */
 
@@ -84,12 +93,27 @@ body {
   border-radius: 6px;
   text-decoration: none;
   font-weight: bold;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-primary:hover {
   background: #084bcc;
 }
-
+.btn-primary-large {
+  margin-top: 20px;
+  background: black;
+  color: white;
+  padding: 15px 35px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary-large:hover {
+  background: #333;
+}
 /* ABOUT */
 
 .about {
@@ -148,6 +172,76 @@ body {
 
 .service-card:hover {
   transform: translateY(-5px);
+}
+
+/* add_reviews */
+.reviews {
+  margin-top: 60px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.reviews-slider {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.review-card {
+  min-width: 300px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  scroll-snap-align: start;
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.review-rating {
+  color: #fbc02d;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.review-text {
+  color: #444;
+}
+
+.review-btn {
+  margin-top: 20px;
+}
+.add_reviews-block {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 30px;
+  margin-top: 50px;
+}
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: center;
+  align-items: center;
+}
+.raiting-select {
+  width: 10%;
+  border-radius: 5px;
+}
+.raitting-textarea {
+  width: 40%;
+  min-height: 50px;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 5px;
 }
 
 /* CTA */
@@ -635,7 +729,9 @@ body {
   text-decoration: none;
   font-size: 13px;
   font-weight: 600;
-  display: inline-block;
+  display: flex;
+  text-align: center;
+  align-items: center;
 }
 
 .btn-primary {
@@ -783,6 +879,11 @@ body {
 
 .btn-secondary:hover {
   background: #bbb;
+}
+@media screen and (width < 1400px) {
+  .header-inner {
+    justify-content: flex-start;
+  }
 }
 @media screen and (width < 1300px) {
   .hero {
