@@ -44,6 +44,7 @@ $bookings = $stmt->fetchAll();
 
 <thead>
 <tr>
+<th>ID</th>
 <th>Дата</th>
 <th>Клиент</th>
 <th>Авто</th>
@@ -59,6 +60,7 @@ $bookings = $stmt->fetchAll();
 <?php foreach($bookings as $b): ?>
 
 <tr>
+<td><span class="booking-id">#<?= $b['id'] ?></span></td>
 
 <td><?= date('d.m.Y H:i', strtotime($b['booking_datetime'])) ?></td>
 

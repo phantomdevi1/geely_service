@@ -565,6 +565,7 @@ body {
 
 .notice {
   margin-top: 20px;
+  margin-bottom: 30px;
   padding: 15px;
   background: #f5f9ff;
   border-radius: 10px;
@@ -824,6 +825,10 @@ body {
   border-collapse: collapse;
   margin-top: 20px;
   font-size: 14px;
+}
+.booking-id {
+  font-weight: 600;
+  color: #1976d2;
 }
 
 .admin-table th {
