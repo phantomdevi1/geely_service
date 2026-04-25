@@ -17,67 +17,68 @@ $page = $_GET['page'] ?? 'home';
 
 <body>
 
-<header class="header">
+<header class="header" id="header">
 
-<div class="container header-inner">
+    <!-- ВЕРХНИЙ БАР -->
+    <div class="header-top">
+        <div class="container header-inner">
 
-    <!-- Логотипы -->
-    <div class="logos">
-        <img src="images/geely-logo.png" alt="Geely">
-        <img src="images/belgee-logo.png" alt="Belgee">
+            <nav class="nav">
+
+                <a href="index.php?page=home" class="<?= ($page=='home') ? 'active' : '' ?>">Главная</a>
+                <a href="index.php?page=services" class="<?= ($page=='services') ? 'active' : '' ?>">Сервисы</a>
+                <a href="index.php?page=booking" class="<?= ($page=='booking') ? 'active' : '' ?>">Запись</a>
+
+                <?php if(isset($_SESSION['user_id'])): ?>
+
+                    <?php if($_SESSION['role'] === 'admin'): ?>
+                        <a href="index.php?page=admin">Админ</a>
+                    <?php elseif($_SESSION['role'] === 'mechanic'): ?>
+                        <a href="index.php?page=mechanic">Механик</a>
+                    <?php else: ?>
+                        <a href="index.php?page=profile">Кабинет</a>
+                    <?php endif; ?>
+
+                    <span class="user-name">
+                        <?= htmlspecialchars($_SESSION['user_name']) ?>
+                    </span>
+
+                <?php else: ?>
+                    <a href="index.php?page=login">Войти</a>
+                <?php endif; ?>
+
+            </nav>
+
+        </div>
     </div>
 
-    <!-- Навигация -->
-    <nav class="nav">
+    <!-- БОЛЬШОЙ БЛОК -->
+    <div class="header-hero">
 
-        <a href="index.php?page=home" class="<?= ($page=='home') ? 'active' : '' ?>">
-            Главная
-        </a>
+        <div class="hero-content">
 
-        <a href="index.php?page=services" class="<?= ($page=='services') ? 'active' : '' ?>">
-            Сервисные центры
-        </a>
+            <div class="hero-logos">
+                <img src="images/geely-logo.png" alt="Geely">
+                <img src="images/belgee-logo.png" alt="Belgee">
+            </div>
 
-        <a href="index.php?page=booking" class="<?= ($page=='booking') ? 'active' : '' ?>">
-            Запись
-        </a>
+            <h1>Сервис Geely & Belgee</h1>
+            <p>Официальное обслуживание и диагностика автомобилей</p>
 
-        <?php if(isset($_SESSION['user_id'])): ?>
+        </div>
 
-            <?php if($_SESSION['role'] === 'admin'): ?>
-
-                <a href="index.php?page=admin" class="<?= ($page=='admin') ? 'active' : '' ?>">
-                    Админ
-                </a>
-
-            <?php elseif($_SESSION['role'] === 'mechanic'): ?>
-
-                <a href="index.php?page=mechanic" class="<?= ($page=='mechanic') ? 'active' : '' ?>">
-                    Панель механика
-                </a>
-
-            <?php else: ?>
-
-                <a href="index.php?page=profile" class="<?= ($page=='profile') ? 'active' : '' ?>">
-                    Личный кабинет
-                </a>
-
-            <?php endif; ?>
-
-            <span class="user-name">
-                <?= htmlspecialchars($_SESSION['user_name']) ?>
-            </span>
-
-        <?php else: ?>
-
-            <a href="index.php?page=login" class="<?= ($page=='login') ? 'active' : '' ?>">
-                Войти
-            </a>
-
-        <?php endif; ?>
-
-    </nav>
-
-</div>
+    </div>
 
 </header>
+
+<script>
+window.addEventListener('scroll', function(){
+    const header = document.getElementById('header');
+
+    if(window.scrollY > 100){
+        header.classList.add('scrolled');
+    } else {
+        header.classList.remove('scrolled');
+    }
+});
+</script>

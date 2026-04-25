@@ -80,7 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $phone
         ]);
 
-        header("Location: index.php?page=booking&success=1");
+        $booking_id = $pdo->lastInsertId();
+        header("Location: index.php?page=booking_success&id=".$booking_id);
         exit;
     }
 }

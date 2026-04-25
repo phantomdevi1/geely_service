@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #333;
-  background: #f5f6f8;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+  background: #f7f8fc;
 }
 
 .container {
@@ -10,7 +12,7 @@ body {
   margin: auto;
 }
 .container-cta {
-  width: 1200px;
+  max-width: 1200px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -21,38 +23,117 @@ body {
 
 /* HEADER */
 
+/* ОБЩИЙ ХЕДЕР */
 .header {
-  background: white;
-  border-bottom: 1px solid #eee;
+  position: relative;
+  width: 100%;
+  transition: 0.4s;
+}
+
+/* ===== HERO ===== */
+.header-hero {
+  height: 45vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  background: linear-gradient(to bottom, #fff, #f5f5f5);
+  transition: 0.4s;
+}
+
+.hero-content {
+  max-width: 800px;
+}
+
+.hero-logos {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 20px;
+}
+
+.hero-logos img {
+  height: 90px;
+  transition: 0.4s;
+}
+
+.header-hero h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.header-hero p {
+  color: #666;
+}
+
+/* ===== НАВИГАЦИЯ ===== */
+.header-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 .header-inner {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 0;
+  justify-content: center;
+  padding: 20px 0;
 }
 
-.logos img {
-  height: 40px;
-  margin-right: 20px;
+.nav {
+  display: flex;
+  gap: 25px;
 }
 
 .nav a {
-  margin-left: 25px;
+  position: relative;
   text-decoration: none;
-  font-weight: 600;
-  color: #333;
+  color: #222;
 }
 
-.nav a:hover {
-  color: #0a63ff;
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 0;
+  height: 2px;
+  background: #1976d2;
+  transition: 0.3s;
 }
-/* Активная ссылка меню */
-.nav a.active {
-  color: #0a63ff; /* синий цвет выделения */
-  font-weight: bold;
-  border-bottom: 2px solid #0a63ff; /* линия под ссылкой */
+
+.nav a:hover::after,
+.nav a.active::after {
+  width: 100%;
+}
+
+/* ===== СЖАТЫЙ ХЕДЕР ===== */
+.header-hero {
+  transform: translateY(0);
+  transition:
+    transform 0.4s ease,
+    opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+
+.header.scrolled .header-hero {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.header.scrolled .header-top {
+  position: fixed;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #eee;
+}
+
+.header.scrolled .header-inner {
+  padding: 15px 0;
 }
 
 /* HERO */
@@ -451,6 +532,45 @@ body {
   margin: 10px 0;
 }
 
+.success-page {
+  display: flex;
+  justify-content: center;
+  padding: 50px 0;
+}
+
+.success-card {
+  max-width: 600px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  text-align: center;
+}
+
+.ticket {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+  text-align: left;
+}
+
+.ticket p {
+  margin: 8px 0;
+}
+
+.success-text {
+  color: #555;
+}
+
+.notice {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f5f9ff;
+  border-radius: 10px;
+  color: #333;
+}
+
 /* Таблица услуг */
 .services-table {
   width: 100%;
@@ -537,6 +657,7 @@ body {
 
 .btn-logout {
   position: absolute;
+  z-index: 9999;
   top: 20px;
   right: 20px;
   background: #333;
@@ -880,11 +1001,7 @@ body {
 .btn-secondary:hover {
   background: #bbb;
 }
-@media screen and (width < 1400px) {
-  .header-inner {
-    justify-content: flex-start;
-  }
-}
+
 @media screen and (width < 1300px) {
   .hero {
     height: 400px;
